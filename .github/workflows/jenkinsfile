@@ -8,22 +8,22 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        // Ambil kode dari GitHub
-        git branch: 'development', url: 'https://github.com/fadiafaida/uts_devops.git'
+        checkout([$class: 'GitSCM',
+          branches: [[name: '*/development']],
+          userRemoteConfigs: [[url: 'https://github.com/fadiafaida/uts_devops.git']]
+        ])
       }
     }
 
     stage('Install Dependencies') {
       steps {
-        // Sesuaikan dengan jenis aplikasi
-        sh 'npm install'          // Untuk Node.js
-        // sh 'pip install -r requirements.txt' // Untuk Python
+        sh 'npm install'
       }
     }
 
     stage('Run Tests') {
       steps {
-        sh 'npm test'             // atau pytest
+        sh 'npm test'
       }
     }
 
@@ -33,8 +33,7 @@ pipeline {
       }
       steps {
         echo "Deploying to ${env.DEPLOY_ENV}..."
-        // Perintah deploy kamu di sini
-        // Contoh: sh './deploy-to-heroku.sh'
+        // sh './deploy-to-heroku.sh'
       }
     }
   }
