@@ -9,7 +9,7 @@ pipeline {
     stage('Checkout') {
       steps {
         // Ambil kode dari GitHub
-        git branch: 'development', url: 'https://github.com/username/uts_devops.git'
+        git branch: 'development', url: 'https://github.com/fadiafaida/uts_devops.git'
       }
     }
 
